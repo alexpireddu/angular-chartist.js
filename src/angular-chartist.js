@@ -1,7 +1,7 @@
 /*global angular, Chartist*/
 
 class AngularChartistCtrl {
-    constructor($scope, $element) {
+    constructor($scope, $element,$timeout) {
         this.data = $scope.data;
         this.chartType = $scope.chartType;
 
@@ -11,7 +11,11 @@ class AngularChartistCtrl {
 
         this.element = $element[0];
 
-        this.renderChart();
+        $timeout(
+            function(){
+                this.renderChart();
+            },500
+        );
 
         $scope.$watch(() => {
             return {
@@ -60,7 +64,7 @@ class AngularChartistCtrl {
     }
 }
 
-AngularChartistCtrl.$inject = ['$scope', '$element'];
+AngularChartistCtrl.$inject = ['$scope', '$element','$timeout'];
 
 function chartistDirective() {
     return {

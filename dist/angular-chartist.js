@@ -18,7 +18,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /*global angular, Chartist*/
 
 var AngularChartistCtrl = (function () {
-    function AngularChartistCtrl($scope, $element) {
+    function AngularChartistCtrl($scope, $element, $timeout) {
         var _this = this;
 
         _classCallCheck(this, AngularChartistCtrl);
@@ -32,7 +32,12 @@ var AngularChartistCtrl = (function () {
 
         this.element = $element[0];
 
-        this.renderChart();
+        $timeout(
+            angular.bind(this,function() {
+                this.renderChart();
+            }),500
+        );
+
 
         $scope.$watch(function () {
             return {
@@ -90,7 +95,7 @@ var AngularChartistCtrl = (function () {
     return AngularChartistCtrl;
 })();
 
-AngularChartistCtrl.$inject = ['$scope', '$element'];
+AngularChartistCtrl.$inject = ['$scope', '$element','$timeout'];
 
 function chartistDirective() {
     return {
